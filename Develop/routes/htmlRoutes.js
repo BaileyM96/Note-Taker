@@ -1,21 +1,16 @@
-//This loads the path module that works with files and directory paths
-const path = require('path'); 
-//This creates a router and uses express
+const path = require('path');
 const router = require('express').Router();
 
 router.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/notes.html'));
-})
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
+    res.sendFile(path.join(__dirname, '../public/notes.html'));
 });
 
-router.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/notes.html'));
-});
-//Use wildcard to access everything that follows the base URL
+router.get('/', (req,res) => {
+    res.sendFile(path.joim(__dirname, '..public/index.html'))
+})
+
 router.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './public.index.html'));
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 module.exports = router;
