@@ -5,32 +5,30 @@ const fs = require('fs');
 
 
 
+
 //Route the file path to api/notes return all notes as JSON
-router.get('/api/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, '../db/db.json'));
+
+router.get('/notes', (req, res) => {
+    try {
+        res.sendFile(path.join(__dirname, '../db/db.json'));
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('err')
+    }
 });
 
-router.post('../api/notes', (req, res) => {
-    let dataBase = fs.readFileSync('/db/db.json');
+router.post('/notes', (req, res) => {
+    let dataBase = fs.readFileSync('db/db.json', 'utf8');
     dataBase = JSON.parse(dataBase);
     // res.json(dataBase);
 
     let userNote = {
         title: req.body.title,
         text: req.body.text,
-    };
+    }
     dataBase.push(userNote);
-    fs.writeFileSync('/db/db.json', JSON.stringify(dataBase));
+    fs.writeFileSync('db/db.json', JSON.stringify(dataBase));
     res.json(dataBase);
-    // let newNote = req.body;
-    // let noteList = JSON.parse(fs.readFileSync('../db/db.json', 'utf8'));
-    // let noteLength = (noteList.length).toString();
-
-    // newNote.id = noteLength;
-    // noteList.push(newNote);
-
-    // fs.writeFileSync("./db/db.json", JSON.stringify(noteList));
-    // res.json(noteList);
 });
 
 // router.delete('/api/notes/:id', (req, res) => {
