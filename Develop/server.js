@@ -14,9 +14,9 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-
-app.use('/', htmlRoutes);
 app.use('/api', apiRoutes); 
+app.use('/', htmlRoutes);
+
 
 
 
